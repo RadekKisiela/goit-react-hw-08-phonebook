@@ -13,6 +13,7 @@ export const RegisterForm = () => {
         Password:
         <input type="text" name="password" placeholder="Password" />
       </label>
+      <button type="submit">Register</button>
     </form>
   );
 };

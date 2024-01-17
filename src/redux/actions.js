@@ -1,39 +1,65 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://65967fcf6bb4ec36ca02c178.mockapi.io/';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchContacts = createAsyncThunk(
-  'contacts/fetchContacts',
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
+
+const setHeader = token => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
+
+const clearToken = () => {
+  axios.defaults.headers.common.Authorization = '';
+};
+
+export const register = createAsyncThunk(
+  'AUTH/REGISTER',
+  async (registerData, thunkAPI) => {
+    try {
+      const response = await axios.post('/users/signup', registerData);
+      setHeader(response.data.token);
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.response.data);
+    }
+  }
+);
+
+export const logIn = createAsyncThunk(
+  'AUTH/LOGIN',
+  async (loginData, thunkAPI) => {
+    try {
+      const response = await axios.post('/users/login', loginData);
+      setHeader(response.data.token);
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.response.data);
+    }
+  }
+);
+
+export const refreshUser = createAsyncThunk(
+  'AUTH/REFRESH_USER',
   async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
+
+    setHeader(token);
+
     try {
-      const { data } = await axios.get('/contacts');
-      return data;
-    } catch (error) {
-      console.error('Error fetching contacts:', error);
-      return thunkAPI.rejectWithValue(error.message);
+      const response = await axios.get('/users/current');
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
-export const addContact = createAsyncThunk(
-  'contacts/addContact',
-  async ({ name, phone }, thunkAPI) => {
-    try {
-      const { data } = await axios.post('/contacts', { name, phone });
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
+
+export const logOut = createAsyncThunk('AUTH/LOG_OUT', async (_, thunkAPI) => {
+  try {
+    await axios.post('/users/logout');
+    clearToken();
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
   }
-);
-export const deleteContact = createAsyncThunk(
-  'contacts/deleteContact',
-  async (id, thunkAPI) => {
-    try {
-      await axios.delete(`/contacts/${id}`);
-      return id;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
+});
