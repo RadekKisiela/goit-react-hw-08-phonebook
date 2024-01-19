@@ -8,6 +8,7 @@ import { RegisterPage } from 'pages/RegisterPage/RegisterPage';
 import { LoginPage } from 'pages/LoginPage/LoginPage';
 import { RestrictRoute } from 'LayoutRoutes/RestrictRoute';
 import { PrivateRoute } from 'LayoutRoutes/PrivateRoute';
+import { ContactsPage } from 'pages/ContactsPage/ContactsPage';
 
 export const App = () => {
   //const dispatch = useDispatch();
@@ -33,24 +34,33 @@ export const App = () => {
       }}
     >
       <Routes>
-        <Route path="/" element={<Layout />} />
-        <Route
-          path="/register"
-          element={
-            <RestrictRoute redirectTo="/contacts">
-              <RegisterPage />
-            </RestrictRoute>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <PrivateRoute redirectTo="/">
-              <LoginPage />
-            </PrivateRoute>
-          }
-        />
-        <Route path="*" element={<h1>404</h1>} />
+        <Route path="/" element={<Layout />}>
+          {/* <Route index element={<Home />} /> */}
+          <Route
+            path="register"
+            element={
+              <RestrictRoute redirectTo="/contacts">
+                <RegisterPage />
+              </RestrictRoute>
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <RestrictRoute redirectTo="/">
+                <LoginPage />
+              </RestrictRoute>
+            }
+          />
+          <Route
+            path="contacts"
+            element={
+              <PrivateRoute redirectTo="/login" component={ContactsPage}>
+                <ContactsPage />
+              </PrivateRoute>
+            }
+          />
+        </Route>
       </Routes>
     </div>
   );
