@@ -1,6 +1,6 @@
 import React from 'react';
-// import { useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useAuth } from 'hooks/useAuth';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from 'pages/Layout/Layout';
@@ -9,14 +9,16 @@ import { LoginPage } from 'pages/LoginPage/LoginPage';
 import { RestrictRoute } from 'LayoutRoutes/RestrictRoute';
 import { PrivateRoute } from 'LayoutRoutes/PrivateRoute';
 import { ContactsPage } from 'pages/ContactsPage/ContactsPage';
+import { Home } from 'pages/HomePage/HomePage';
+import { refreshUser } from '../redux/actions';
 
 export const App = () => {
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { isRefreshing } = useAuth();
 
-  // useEffect(() => {
-  //   dispatch(refreshUser());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
 
   if (isRefreshing) {
     return <div>Loading....</div>;
@@ -35,7 +37,7 @@ export const App = () => {
     >
       <Routes>
         <Route path="/" element={<Layout />}>
-          {/* <Route index element={<Home />} /> */}
+          <Route index element={<Home />} />
           <Route
             path="register"
             element={

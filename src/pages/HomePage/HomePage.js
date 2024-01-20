@@ -1,22 +1,20 @@
-// import React from 'react';
-// import { useAuth } from '../../hooks/useAuth';
+import React from 'react';
+import { useAuth } from '../../hooks/useAuth';
 
-// export const Home = () => {
-//   const { isUser, isLogged } = useAuth();
+export const Home = () => {
+  const { isLoggedIn, user } = useAuth();
 
-//   const { name } = isUser();
-
-//   return (
-//     <div>
-//       {isLogged() ? (
-//         <div>
-//           <p>Hi {name}</p>
-//         </div>
-//       ) : (
-//         <div>
-//           <p>Please login or register</p>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
+  return (
+    <div>
+      {isLoggedIn ? (
+        <div>
+          <p>Hi {user.name}</p>
+        </div>
+      ) : (
+        <div>
+          <p>Please login or register</p>
+        </div>
+      )}
+    </div>
+  );
+};
