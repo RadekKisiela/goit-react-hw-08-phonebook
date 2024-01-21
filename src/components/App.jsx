@@ -24,17 +24,7 @@ export const App = () => {
     return <div>Loading....</div>;
   }
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        fontSize: 20,
-        color: '#010101',
-      }}
-    >
+    <div>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
