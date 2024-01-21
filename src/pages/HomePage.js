@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../hooks/useAuth';
 import css from './HomePage.module.css';
 
 export const Home = () => {

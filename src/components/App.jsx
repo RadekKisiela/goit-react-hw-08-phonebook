@@ -3,13 +3,13 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAuth } from 'hooks/useAuth';
 import { Route, Routes } from 'react-router-dom';
-import { Layout } from 'pages/layout/Layout.js';
-import { RegisterPage } from 'pages/registerpage/RegisterPage';
-import { LoginPage } from 'pages/loginpage/LoginPage';
+import { Layout } from '../pages/Layout';
+import { RegisterPage } from 'pages/RegisterPage';
+import { LoginPage } from 'pages/LoginPage';
 import { RestrictRoute } from '../layoutRoutes/RestrictRoute';
 import { PrivateRoute } from '../layoutRoutes/PrivateRoute';
-import { ContactsPage } from 'pages/contactspage/ContactsPage';
-import { Home } from 'pages/homepage/HomePage';
+import { ContactsPage } from 'pages/ContactsPage';
+import { Home } from 'pages/HomePage';
 import { refreshUser } from '../redux/actions';
 
 export const App = () => {
