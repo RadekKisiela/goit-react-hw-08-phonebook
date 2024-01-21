@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAuth } from 'hooks/useAuth';
 import { Route, Routes } from 'react-router-dom';
-import { Layout } from 'pages/layout/Layout';
+import { Layout } from 'pages/layout/Layout.js';
 import { RegisterPage } from 'pages/registerpage/RegisterPage';
 import { LoginPage } from 'pages/loginpage/LoginPage';
 import { RestrictRoute } from '../layoutRoutes/RestrictRoute';
