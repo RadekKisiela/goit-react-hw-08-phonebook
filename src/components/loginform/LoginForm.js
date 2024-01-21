@@ -15,7 +15,7 @@ export const LoginForm = () => {
     );
   };
   return (
-    <form className={css.LoginForm} onSubmit={handleSubmit} autoComplete="off">
+    <form className={css.loginForm} onSubmit={handleSubmit} autoComplete="off">
       <label>
         Email:
         <input type="text" name="email" placeholder="Email" />

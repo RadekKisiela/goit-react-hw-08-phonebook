@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useAuth } from 'hooks/useAuth';
 import { logOut } from '../../redux/actions';
+import css from './NavigationBar.module.css';
 
 export const NavigationBar = () => {
   const dispatch = useDispatch();
@@ -16,21 +17,39 @@ export const NavigationBar = () => {
   };
 
   return (
-    <header>
-      <nav>
+    <header className={css.header}>
+      <nav className={css.nav}>
         <React.Fragment>
-          <NavLink activeClassName="active" to="/">
+          <NavLink className={css.navLink} activeClassName="active" to="/">
             Home
           </NavLink>
-          <NavLink to="/contacts">Contacts</NavLink>
+          <NavLink
+            className={css.navLink}
+            activeClassName={css.active}
+            to="/contacts"
+          >
+            Contacts
+          </NavLink>
           {isLogged ? (
             <button to="/login" onClick={handleLogout}>
               Logout
             </button>
           ) : (
             <React.Fragment>
-              <NavLink to="/login">Login</NavLink>
-              <NavLink to="/register">Register</NavLink>
+              <NavLink
+                className={css.navLink}
+                activeClassName={css.active}
+                to="/login"
+              >
+                Login
+              </NavLink>
+              <NavLink
+                className={css.navLink}
+                activeClassName={css.active}
+                to="/register"
+              >
+                Register
+              </NavLink>
             </React.Fragment>
           )}
         </React.Fragment>

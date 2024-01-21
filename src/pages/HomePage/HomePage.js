@@ -1,18 +1,19 @@
 import React from 'react';
 import { useAuth } from '../../hooks/useAuth';
+import css from './HomePage.module.css';
 
 export const Home = () => {
   const { isLoggedIn, user } = useAuth();
 
   return (
-    <div>
+    <div className={css.homeContainer}>
       {isLoggedIn ? (
         <div>
-          <p>Hi {user.name}</p>
+          <p className={css.welcomeMsg}>Hi {user.name}</p>
         </div>
       ) : (
         <div>
-          <p>Please login or register</p>
+          <p className={css.infoMsg}>Please login or register</p>
         </div>
       )}
     </div>
