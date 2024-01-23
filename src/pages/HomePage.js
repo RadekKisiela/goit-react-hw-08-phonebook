@@ -3,11 +3,11 @@ import { useAuth } from '../hooks/useAuth';
 import css from './HomePage.module.css';
 
 export const Home = () => {
-  const { isLoggedIn, user } = useAuth();
+  const { isLogged, user } = useAuth();
 
   return (
     <div className={css.homeContainer}>
-      {isLoggedIn ? (
+      {isLogged ? (
         <div>
           <p className={css.welcomeMsg}>Hi {user.name}</p>
         </div>
