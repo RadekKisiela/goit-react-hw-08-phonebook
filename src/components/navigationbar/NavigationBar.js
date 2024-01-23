@@ -18,42 +18,32 @@ export const NavigationBar = () => {
 
   return (
     <header className={css.header}>
-      <nav className={css.nav}>
+      <div className={css.div}>
         <React.Fragment>
-          <NavLink className={css.navLink} activeClassName="active" to="/">
-            Home
-          </NavLink>
-          <NavLink
-            className={css.navLink}
-            activeClassName={css.active}
-            to="/contacts"
-          >
+          <nav id="navLink">
+            <NavLink className={css.navLink} end to="/">
+              Home
+            </NavLink>
+          </nav>
+          <NavLink className={css.navLink} to="/contacts">
             Contacts
           </NavLink>
           {isLogged ? (
-            <button to="/login" onClick={handleLogout}>
+            <button className={css.logoutButton} onClick={handleLogout}>
               Logout
             </button>
           ) : (
             <React.Fragment>
-              <NavLink
-                className={css.navLink}
-                activeClassName={css.active}
-                to="/login"
-              >
+              <NavLink className={css.navLink} to="/login">
                 Login
               </NavLink>
-              <NavLink
-                className={css.navLink}
-                activeClassName={css.active}
-                to="/register"
-              >
+              <NavLink className={css.navLink} to="/register">
                 Register
               </NavLink>
             </React.Fragment>
           )}
         </React.Fragment>
-      </nav>
+      </div>
     </header>
   );
 };
