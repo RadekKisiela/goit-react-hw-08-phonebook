@@ -17,7 +17,7 @@
   transition: color 0.3s ease;
 }
 
-.navLink.active {
+.navLinkActive {
   text-decoration: underline;
 }
 

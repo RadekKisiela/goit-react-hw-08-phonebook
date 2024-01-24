@@ -16,16 +16,17 @@ export const NavigationBar = () => {
     navigate('/login');
   };
 
+  const navLinkStyles = ({ isActive }) =>
+    [css.navLink, isActive ? css.activeNavLink : ''].join(' ');
+
   return (
     <header className={css.header}>
       <div className={css.div}>
         <React.Fragment>
-          <nav id="navLink">
-            <NavLink className={css.navLink} end to="/">
-              Home
-            </NavLink>
-          </nav>
-          <NavLink className={css.navLink} to="/contacts">
+          <NavLink className={navLinkStyles} exact to="/">
+            Home
+          </NavLink>
+          <NavLink className={navLinkStyles} exact to="/contacts">
             Contacts
           </NavLink>
           {isLogged ? (
@@ -34,10 +35,10 @@ export const NavigationBar = () => {
             </button>
           ) : (
             <React.Fragment>
-              <NavLink className={css.navLink} to="/login">
+              <NavLink className={navLinkStyles} exact to="/login">
                 Login
               </NavLink>
-              <NavLink className={css.navLink} to="/register">
+              <NavLink className={navLinkStyles} exact to="/register">
                 Register
               </NavLink>
             </React.Fragment>
