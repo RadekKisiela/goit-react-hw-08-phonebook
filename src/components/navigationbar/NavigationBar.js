@@ -23,10 +23,10 @@ export const NavigationBar = () => {
     <header className={css.header}>
       <div className={css.div}>
         <React.Fragment>
-          <NavLink className={navLinkStyles} exact to="/">
+          <NavLink className={navLinkStyles} to="/">
             Home
           </NavLink>
-          <NavLink className={navLinkStyles} exact to="/contacts">
+          <NavLink className={navLinkStyles} to="/contacts">
             Contacts
           </NavLink>
           {isLogged ? (
@@ -35,10 +35,10 @@ export const NavigationBar = () => {
             </button>
           ) : (
             <React.Fragment>
-              <NavLink className={navLinkStyles} exact to="/login">
+              <NavLink className={navLinkStyles} to="/login">
                 Login
               </NavLink>
-              <NavLink className={navLinkStyles} exact to="/register">
+              <NavLink className={navLinkStyles} to="/register">
                 Register
               </NavLink>
             </React.Fragment>
