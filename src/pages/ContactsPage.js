@@ -81,13 +81,14 @@ export const ContactsPage = () => {
       </div>
       <h2>Contacts</h2>
       <ul className={css.contactsList}>
-        {contacts.map((contact, index) => (
-          <li key={contact.id}>
-            {contact.name}: {contact.phone}
-            <button onClick={() => handleEdit(index)}>Edit</button>
-            <button onClick={() => handleDelete(index)}>Delete</button>
-          </li>
-        ))}
+        {contacts &&
+          contacts.map((contact, index) => (
+            <li key={contact.id}>
+              {contact.name}: {contact.phone}
+              <button onClick={() => handleEdit(index)}>Edit</button>
+              <button onClick={() => handleDelete(index)}>Delete</button>
+            </li>
+          ))}
       </ul>
     </div>
   );
