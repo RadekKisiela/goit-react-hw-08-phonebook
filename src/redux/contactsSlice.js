@@ -1,46 +1,73 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { logIn, logOut, refreshUser, register } from './actions';
+import {
+  fetchContacts,
+  addContact,
+  deleteContact,
+  updateContact,
+} from './contactsSlice.js';
 
-const initialState = {
-  user: { name: null, email: null },
-  token: null,
-  isLoggedIn: false,
-  isRefreshing: false,
+const handlePending = state => {
+  state.isLoading = 'true';
 };
 
-const authSlice = createSlice({
-  name: 'auth',
-  initialState,
-  reducers: {},
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
+
+export const contactsSlice = createSlice({
+  name: 'contacts',
+  initialState: {
+    contacts: [],
+    isLoading: false,
+    error: null,
+    isEditorActive: false,
+    contactToEdit: null,
+  },
+  reducers: {
+    showEditor: (state, action) => {
+      state.isEditorActive = true;
+      state.contactToEdit.id = action.payload.id;
+      state.contactToEdit.name = action.payload.name;
+      state.contactToEdit.number = action.payload.number;
+    },
+    hideEditor: state => {
+      state.isEditorActive = false;
+    },
+  },
   extraReducers: builder => {
-    builder
-      .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.isLoggedIn = true;
-      })
-      .addCase(logIn.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.isLoggedIn = true;
-      })
-      .addCase(refreshUser.pending, state => {
-        state.isRefreshing = true;
-      })
-      .addCase(refreshUser.fulfilled, (state, action) => {
-        state.user = action.payload;
-        state.isLoggedIn = true;
-        state.isRefreshing = false;
-      })
-      .addCase(refreshUser.rejected, state => {
-        state.isRefreshing = false;
-      })
-      .addCase(logOut.fulfilled, state => {
-        state.user = { name: null, email: null };
-        state.token = null;
-        state.isLoggedIn = false;
-      });
+    builder.addCase(fetchContacts.pending, handlePending);
+    builder.addCase(addContact.pending, handlePending);
+    builder.addCase(deleteContact.pending, handlePending);
+    builder.addCase(fetchContacts.rejected, handleRejected);
+    builder.addCase(addContact.rejected, handleRejected);
+    builder.addCase(deleteContact.rejected, handleRejected);
+    builder.addCase(fetchContacts.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.contacts = action.payload;
+    });
+    builder.addCase(addContact.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.contacts.push(action.payload);
+    });
+    builder.addCase(deleteContact.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.contacts.findIndex(
+        contact => contact.id === action.payload.id
+      );
+      state.contacts.splice(index, 1);
+    });
+    builder.addCase(updateContact.fulfilled, (state, action) => {
+      const index = state.contacts.findIndex(
+        contact => contact.id === action.payload.id
+      );
+      state.contacts.splice(index, 1, action.payload);
+      state.isEditorActive = false;
+    });
   },
 });
-
-export const authReducer = authSlice.reducer;
+export const { showEditor, closeEditor } = contactsSlice.actions;
+export const contactsReducer = contactsSlice.reducer;
