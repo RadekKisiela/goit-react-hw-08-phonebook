@@ -22,7 +22,7 @@ export const contactsSlice = createSlice({
     isLoading: false,
     error: null,
     isEditorActive: false,
-    contactToEdit: null,
+    contactToEdit: {},
   },
   reducers: {
     showEditor: (state, action) => {
@@ -69,5 +69,5 @@ export const contactsSlice = createSlice({
     });
   },
 });
-export const { showEditor, closeEditor } = contactsSlice.actions;
+export const { showEditor, hideEditor } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;

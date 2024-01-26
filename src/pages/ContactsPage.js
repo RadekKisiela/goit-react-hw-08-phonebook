@@ -8,7 +8,7 @@ export const ContactsPage = () => {
   const contacts = useSelector(state => state.contacts.contacts);
 
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
   const [edit, setEdit] = useState(null);
 
   useEffect(() => {
@@ -19,16 +19,18 @@ export const ContactsPage = () => {
     setName(e.target.value);
   };
 
-  const handleChangePhone = e => {
-    setPhone(e.target.value);
+  const handleChangeNumber = e => {
+    setNumber(e.target.value);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    const isDuplicate = contacts.some(
-      contact => contact.name === name || contact.phone === phone
-    );
+    const isDuplicate =
+      Array.isArray(contacts) &&
+      contacts.some(
+        contact => contact.name === name || contact.number === number
+      );
 
     if (isDuplicate && edit === null) {
       alert('Contact already exists');
@@ -38,18 +40,18 @@ export const ContactsPage = () => {
     dispatch(
       addContact({
         name,
-        phone,
+        number,
       })
     );
 
     setName('');
-    setPhone('');
+    setNumber('');
     setEdit(null);
   };
 
   const handleEdit = index => {
     setName(contacts[index].name);
-    setPhone(contacts[index].phone);
+    setNumber(contacts[index].number);
     setEdit(contacts[index].id);
   };
 
@@ -73,18 +75,18 @@ export const ContactsPage = () => {
             <input type="text" value={name} onChange={handleChangeName} />
           </div>
           <div>
-            <label>Phone</label>
-            <input type="text" value={phone} onChange={handleChangePhone} />
+            <label>Number</label>
+            <input type="text" value={number} onChange={handleChangeNumber} />
           </div>
           <button type="submit">{edit !== null ? 'Edit' : 'Add'}</button>
         </form>
       </div>
       <h2>Contacts</h2>
       <ul className={css.contactsList}>
-        {contacts &&
+        {Array.isArray(contacts) &&
           contacts.map((contact, index) => (
             <li key={contact.id}>
-              {contact.name}: {contact.phone}
+              {contact.name}: {contact.number}
               <button onClick={() => handleEdit(index)}>Edit</button>
               <button onClick={() => handleDelete(index)}>Delete</button>
             </li>
