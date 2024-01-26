@@ -4,7 +4,7 @@ import {
   addContact,
   deleteContact,
   updateContact,
-} from './contactsSlice.js';
+} from './actions';
 
 const handlePending = state => {
   state.isLoading = 'true';
