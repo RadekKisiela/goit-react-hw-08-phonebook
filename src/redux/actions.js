@@ -80,10 +80,10 @@ export const addContact = createAsyncThunk(
   '/contacts/addContact',
   async (contact, thunkAPI) => {
     try {
-      const { name, phone } = contact;
+      const { name, number } = contact;
       const response = await axios.post('/contacts', {
         name,
-        phone,
+        number,
       });
       return response.data;
     } catch (err) {
@@ -108,10 +108,10 @@ export const updateContact = createAsyncThunk(
   '/contacts/update',
   async (newContact, thunkAPI) => {
     try {
-      const { newName, newPhone } = newContact;
+      const { newName, newNumber } = newContact;
       const response = await axios.patch(`/contacts/${newContact.id}`, {
         name: newName,
-        phone: newPhone,
+        number: newNumber,
       });
       return response.data;
     } catch (err) {
